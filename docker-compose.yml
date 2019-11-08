@@ -1,0 +1,20 @@
+version: "3"
+services:
+  weatherapp_backend:
+    build: ./backend
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+     - 9000:8080
+    command: "npm start"
+
+  weatherapp_frontend:
+    image: node:13-alpine
+    build: ./frontend
+    volumes:
+      - ./frontend:/var/www/html
+    ports:
+     - 9001:8080
+    command: "npm start"
+    depends_on:
+    - weatherapp_backend
